@@ -1,5 +1,9 @@
 const INITIAL_STATE = {
-	users: []
+	users: [],
+	editedUser: {
+		name: '',
+		email: ''
+	}
 }
 
 export const rootReducer = (state = INITIAL_STATE, action) => {
@@ -25,7 +29,11 @@ export const rootReducer = (state = INITIAL_STATE, action) => {
 					...state.users.slice(0, editedElementIndex),
 					action.user,
 					...state.users.slice(editedElementIndex + 1, state.users.length)
-				]
+				],
+				editedUser: {
+					name: '',
+					email: ''
+				}
 			}
 		case 'DELETE_USER':
 			const deletedElementIndex = state.users.findIndex(el => el.id === action.userId)

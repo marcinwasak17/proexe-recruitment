@@ -5,7 +5,7 @@ import isEmail from '../utils/isEmail'
 import { editExistingUser } from '../actions'
 import {connect} from 'react-redux'
 
-function EditUser({editUser}) {
+function EditUser({editUser, users}) {
 	const [name, setName] = useState('')
 	const [email, setEmail] = useState('')
 	const [errors, setErrors] = useState({
@@ -16,13 +16,12 @@ function EditUser({editUser}) {
 	let { id } = useParams()
 
 	useEffect(() => {
-		fetch(`https://jsonplaceholder.typicode.com/users/${id}`)
-			.then(response => response.json())
-			.then(json => {
-				setName(json.name)
-				setEmail(json.email)
-			})
-	}, [id])
+		const editedUser = users.find(el => el.id === parseInt(id))
+		if (editedUser) {
+			setName(editedUser.name)
+			setEmail(editedUser.email)
+		}
+	}, [users, id])
 
 	const validateForm = event => {
 		event.preventDefault()
@@ -130,7 +129,13 @@ const mapDispatchToProps = (dispatch) => ({
 	editUser: (user) => {dispatch(editExistingUser(user))},
 })
 
+const mapStateToProps = (state) => {
+	return {
+		users: state.users
+	}
+}
+
 export default connect(
-	null,
+	mapStateToProps,
 	mapDispatchToProps
 )(EditUser)
