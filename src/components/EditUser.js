@@ -35,7 +35,8 @@ function EditUser({editUser, users}) {
 				method: 'PATCH',
 				body: JSON.stringify({
 					name: name,
-					mail: email
+					email: email,
+					id: parseInt(id)
 				}),
 				headers: {
 					"Content-type": "application/json; charset=UTF-8"

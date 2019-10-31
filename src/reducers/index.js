@@ -23,6 +23,7 @@ export const rootReducer = (state = INITIAL_STATE, action) => {
 			}
 		case 'EDIT_USER':
 			const editedElementIndex = state.users.findIndex(el => el.id === action.user.id)
+
 			return {
 				...state,
 				users: [
