@@ -34,7 +34,6 @@ function CreateUser({createUser}) {
 			})
 				.then(response => response.json())
 				.then(json => {
-					console.log(json)
 					createUser(json)
 					setShouldRedirect(true)
 				})

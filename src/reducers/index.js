@@ -29,7 +29,6 @@ export const rootReducer = (state = INITIAL_STATE, action) => {
 			}
 		case 'DELETE_USER':
 			const deletedElementIndex = state.users.findIndex(el => el.id === action.userId)
-			console.log(deletedElementIndex)
 			return {
 				...state,
 				users: [

@@ -15,7 +15,6 @@ function DashboardContainer({ users, deleteUser }) {
 		}
 	}, [deletedUserId, displayModal])
 
-	console.log(deletedUserId)
 	return (
 		<Card body style={{ padding: '1rem' }}>
 			<ListGroup>
@@ -46,13 +45,16 @@ function DashboardContainer({ users, deleteUser }) {
 						</thead>
 						<tbody>
 						{
-							!!users.length && users.map((user) => (
-								<UserListRow
-									user={user}
-									key={`user-list-row-${user.id}`}
-									setDeletedUserId={setDeletedUserId}
-								/>
-							))
+							!!users.length ?
+								users.map((user) => (
+									<UserListRow
+										user={user}
+										key={`user-list-row-${user.id}`}
+										setDeletedUserId={setDeletedUserId}
+									/>
+								))
+								:
+								<tr>There are no users to display</tr>
 						}
 						</tbody>
 					</Table>

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import {
 	BrowserRouter as Router,
@@ -12,16 +12,19 @@ import CreateUser from './CreateUser'
 import EditUser from './EditUser'
 
 function DashboardContainer({ users, setListData }) {
+	const [isDataFetched, setIsDataFetched] = useState(false)
+
 	useEffect(() => {
-		if (!users.length) {
-			console.log('get')
+		if (!users.length && !isDataFetched) {
 			fetch('https://jsonplaceholder.typicode.com/users')
 				.then(response => response.json())
-				.then(json => setListData(json))
+				.then(json => {
+					setIsDataFetched(true)
+					setListData(json)
+				})
 		}
-	}, [setUsers, users.length])
+	}, [setListData, users.length, isDataFetched])
 
-	console.log(users)
 	return (
 		<React.Fragment>
 			<DashboardHeader />
